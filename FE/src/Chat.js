@@ -2,7 +2,7 @@ import { AttachFile, InsertChartOutlinedOutlined, InsertEmoticon, Keyboard, Keyb
 import { Avatar, IconButton } from "@mui/material";
 import React from "react";
 import "./Chat.css";
-function Chat() {
+function Chat({ messages }) {
 
     return (
         <div className="chat">
@@ -26,48 +26,17 @@ function Chat() {
 
             </div>
             <div className="chat__body">
-                <p className="chat__message">
-                    <span className="chat__name">Umer</span>
-                    This is message
-                    <span className="chat__timestamp">
-                        {new Date().toUTCString()}
-                    </span>
-                </p>
-                <p className="chat__message chat__reciever">
-                    <span className="chat__name">Umer</span>
-                    This is message
-                    <span className="chat__timestamp">
-                        {new Date().toUTCString()}
-                    </span>
-                </p>
-                <p className="chat__message">
-                    <span className="chat__name">Umer</span>
-                    This is message
-                    <span className="chat__timestamp">
-                        {new Date().toUTCString()}
-                    </span>
-                </p>
-                <p className="chat__message">
-                    <span className="chat__name">Umer</span>
-                    This is message
-                    <span className="chat__timestamp">
-                        {new Date().toUTCString()}
-                    </span>
-                </p>
-                <p className="chat__message">
-                    <span className="chat__name">Umer</span>
-                    This is message
-                    <span className="chat__timestamp">
-                        {new Date().toUTCString()}
-                    </span>
-                </p>
-                <p className="chat__message">
-                    <span className="chat__name">Umer</span>
-                    This is message
-                    <span className="chat__timestamp">
-                        {new Date().toUTCString()}
-                    </span>
-                </p>
+                {messages.map((message) => {
+                    return <p className={`chat__message ${message.recieved && 'chat__reciever'} `}>
+                        <span className="chat__name">{message.name}</span>
+                        {message.message}
+                        <span className="chat__timestamp">
+                            {message.timestamp}
+                        </span>
+                    </p>
+                })}
+
+
 
             </div>
             <div className="chat__footer">
@@ -81,9 +50,9 @@ function Chat() {
                         Send a message
                     </button>
                 </form>
-                <KeyboardVoice/>
+                <KeyboardVoice />
             </div>
-        </div>
+        </div >
     );
 }
 

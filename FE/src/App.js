@@ -19,8 +19,10 @@ function App() {
     });
 
     const channel = pusher.subscribe('messages');
-    channel.bind('inserted', function (data) {
-      setMessages([...messages, data])
+    channel.bind('inserted', function (newMessage) {
+      if (messages.length >= 1) {
+        setMessages([...messages, newMessage])
+      }
     });
     // eslint-disable-next-line no-unused-expressions
     () => {
@@ -30,7 +32,6 @@ function App() {
 
   }, [messages])
 
-  console.log('messages=>', messages)
 
   return (
     <div className="app">

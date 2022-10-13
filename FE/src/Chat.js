@@ -1,8 +1,22 @@
 import { AttachFile, InsertChartOutlinedOutlined, InsertEmoticon, Keyboard, KeyboardVoice, MoreVert, SearchOutlined } from "@mui/icons-material";
 import { Avatar, IconButton } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import "./Chat.css";
+import axios from './axios';
+
 function Chat({ messages }) {
+    const [input, setInput] = useState('')
+
+    const sendMsg = async (e) => {
+        e.preventDefault();
+        axios.post('/api/message/new', {
+            "message": input,
+            "name": "Demo App",
+            "timestamp": "Just Now",
+            "recieved": false
+        })
+        setInput('')
+    }
 
     return (
         <div className="chat">
@@ -42,11 +56,13 @@ function Chat({ messages }) {
             <div className="chat__footer">
                 <InsertEmoticon />
                 <form>
-                    <input
+                    <input value={input} onChange={(e) => {
+                        setInput(e.target.value);
+                    }}
                         placeholder="Type your message"
                         type="text"
                     />
-                    <button type="submit">
+                    <button type="submit" onClick={sendMsg}>
                         Send a message
                     </button>
                 </form>
